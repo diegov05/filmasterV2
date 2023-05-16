@@ -6,14 +6,18 @@
     background: linear-gradient(90deg, #7216F4 0%, #FFD600 100%) !important;
 }
 
-.bg-gradient:hover {
-    background: #fff;
-}
-
 .input-border {
     border: 1px solid #290521;
 }
 
 .input-border:focus {
+    outline: none;
+}
+
+.dark-input-border {
+    border: 1px solid #F6F6F6;
+}
+
+.dark-input-border:focus {
     outline: none;
 }

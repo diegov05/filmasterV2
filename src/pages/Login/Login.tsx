@@ -3,8 +3,8 @@ import { fetchSignInMethodsForEmail, signInWithEmailAndPassword } from 'firebase
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../firebase'
 import images from '../../assets'
+import { Loading, Notification } from '../../components'
 import "./Login.css"
-import { Loading } from '../../components'
 
 interface LoginProps {
 
@@ -18,29 +18,47 @@ const Login: FC<LoginProps> = () => {
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
+    const [canShow, setCanShow] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>("");
+    const [iconIndex, setIconIndex] = useState<number>(0);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
             const methods = await fetchSignInMethodsForEmail(auth, email);
             if (methods.length === 0) {
-                setError("User not found.")
+                setMessage("User not found.")
+                setIconIndex(2)
+                setCanShow(true)
+                setTimeout(() => {
+                    setCanShow(false)
+                }, 3000)
                 return;
             }
+            setMessage("Successfully logged in...")
+            setIconIndex(1)
+            setCanShow(true)
             await signInWithEmailAndPassword(auth, email, password);
-            navigate('/')
+            setTimeout(() => {
+                setCanShow(false)
+                navigate('/')
+            }, 3000)
         } catch (error: any) {
             if (error.code === 'auth/wrong-password') {
-                setError('Wrong password');
+                setMessage('Wrong password');
+                setIconIndex(2)
+                setCanShow(true)
+                setTimeout(() => {
+                    setCanShow(false)
+                }, 3000)
             }
             setError(error.message)
         }
     }
 
-    console.error(error)
-
     return (
-        <div className='flex flex-row overflow-hidden'>
+        <div className='slide-in-fwd-center flex flex-row overflow-hidden'>
+            {canShow && <Notification message={message} success={iconIndex} />}
             <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
             <div className='flex flex-col w-full p-8 sm:max-4xl:pt-12 sm:max-4xl:pl-12 sm:max-4xl:pr-12 gap-20'>
                 <div className='w-max'>
@@ -55,6 +73,9 @@ const Login: FC<LoginProps> = () => {
                             <div className='flex flex-col gap-4'>
                                 <input className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-4 pw-16 rounded-2xl font-bold text-xl text-bg-color' type="submit" value="Log In" />
                                 <button type='button' onClick={() => {
+                                    setMessage("You're being redirected in a few seconds...")
+                                    setIconIndex(1)
+                                    setCanShow(true)
                                     setIsLoading(true)
                                     setIsDisabled(true)
                                     setTimeout(() => {
