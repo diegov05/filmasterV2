@@ -4,6 +4,7 @@ import { MovieCard } from "./MovieCard/MovieCard";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { NavBar } from "./NavBar/NavBar";
 import { MoviePoster } from "./MoviePoster/MoviePoster";
+import Loading from "./Loading/Loading";
 
 export {
     AddToWatchList,
@@ -11,5 +12,6 @@ export {
     MovieCard,
     MoviePoster,
     NavBar,
-    SearchBar
+    SearchBar,
+    Loading
 }
