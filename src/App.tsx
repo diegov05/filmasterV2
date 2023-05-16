@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { AuthProvider } from './contexts/AuthContext'
-
+import { Login, MainPage, Movie, Register } from "./pages"
 
 interface AppProps {
 
@@ -9,9 +9,18 @@ interface AppProps {
 
 const App: FC<AppProps> = () => {
   return (
-    <div>
-      App
-    </div>
+    <>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/' element={<MainPage />} />
+            <Route path='/movie/:id' element={<Movie />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider >
+    </>
   )
 }
 
