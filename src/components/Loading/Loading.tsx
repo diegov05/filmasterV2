@@ -12,8 +12,6 @@ const Loading: React.FC<LoadingProps> = () => {
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
 
-    console.log(size, strokeWidth, radius, circumference)
-
     return (
         <svg
             viewBox={`0 0 ${size} ${size}`}
@@ -35,4 +33,4 @@ const Loading: React.FC<LoadingProps> = () => {
     );
 };
 
-export default Loading;
+export { Loading };
