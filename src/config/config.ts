@@ -1,10 +1,10 @@
 export const config = {
     firebaseConfig: {
-        apiKey: "AIzaSyBsIdlJLJGiESJvTOpBRjpebcydq-qtR7E",
-        authDomain: "filmaster.firebaseapp.com",
-        projectId: "filmaster",
-        storageBucket: "filmaster.appspot.com",
-        messagingSenderId: "906423202327",
-        appId: "1:906423202327:web:db065d99238f0350386252"
+        apiKey: "AIzaSyDJy9ij2FRp25jsXMd-fpREOZf2LHzve6c",
+        authDomain: "filmasterv2.firebaseapp.com",
+        projectId: "filmasterv2",
+        storageBucket: "filmasterv2.appspot.com",
+        messagingSenderId: "821748977491",
+        appId: "1:821748977491:web:436c3aa3fc80f37db8dba6"
     }
 }
