@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react'
 
-export type IAppProps = {
-  //
+interface AppProps {
+
 }
 
-const App: React.FC<IAppProps> = () => {
+const App: FC<AppProps> = () => {
   return (
     <div>
-
+      App
     </div>
-  );
+  )
 }
 
 export { App };
