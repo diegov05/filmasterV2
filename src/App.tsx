@@ -1,4 +1,7 @@
 import React, { FC } from 'react'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { AuthProvider } from './contexts/AuthContext'
+
 
 interface AppProps {
 
