@@ -1,0 +1,19 @@
+.bg-diagonal-gradient {
+    background: linear-gradient(37.45deg, #7216F4 27.4%, #FFD600 123.74%);
+}
+
+.bg-gradient {
+    background: linear-gradient(90deg, #7216F4 0%, #FFD600 100%) !important;
+}
+
+.bg-gradient:hover {
+    background: #fff;
+}
+
+.input-border {
+    border: 1px solid #290521;
+}
+
+.input-border:focus {
+    outline: none;
+}
