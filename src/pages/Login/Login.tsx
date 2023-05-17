@@ -31,7 +31,6 @@ const Login: FC<LoginProps> = () => {
                 setIconIndex(2)
                 setCanShow(true)
                 setTimeout(() => {
-                    setCanShow(false)
                 }, 3000)
                 return;
             }
@@ -40,7 +39,6 @@ const Login: FC<LoginProps> = () => {
             setCanShow(true)
             await signInWithEmailAndPassword(auth, email, password);
             setTimeout(() => {
-                setCanShow(false)
                 navigate('/')
             }, 3000)
         } catch (error: any) {
@@ -48,19 +46,16 @@ const Login: FC<LoginProps> = () => {
                 setMessage('Wrong password');
                 setIconIndex(2)
                 setCanShow(true)
-                setTimeout(() => {
-                    setCanShow(false)
-                }, 3000)
             }
             setError(error.message)
         }
     }
 
     return (
-        <div className='slide-in-fwd-center flex flex-row overflow-hidden'>
+        <div className='slide-in-fwd-center flex flex-row overflow-hidden bg-bg-color'>
             {canShow && <Notification message={message} success={iconIndex} />}
             <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
-            <div className='flex flex-col w-full p-8 sm:max-4xl:pt-12 sm:max-4xl:pl-12 sm:max-4xl:pr-12 gap-20'>
+            <div className='flex flex-col w-full h-full p-8 justify-center items-center sm:max-4xl:p-12 sm:max-4xl:justify-start sm:max-4xl:items-start gap-20'>
                 <div className='w-max'>
                     <h1 className='w-max font-bold text-6xl pb-4'>Log In</h1>
                     <div className='w-52 h-1.5 bg-gradient' />
