@@ -15,7 +15,6 @@ const Login: FC<LoginProps> = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [canShow, setCanShow] = useState<boolean>(false);
@@ -47,7 +46,7 @@ const Login: FC<LoginProps> = () => {
                 setIconIndex(2)
                 setCanShow(true)
             }
-            setError(error.message)
+            console.log(error.message)
         }
     }
 

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { auth } from '../../firebase'
 import { Loading, Notification } from '../../components'
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth'
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
 import images from '../../assets'
 import "./Register.css"
 
@@ -18,7 +17,6 @@ const Register: FC<RegisterProps> = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [canShow, setCanShow] = useState<boolean>(false);
