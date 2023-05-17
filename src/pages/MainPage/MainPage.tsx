@@ -1,14 +1,25 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
+import { AuthContext } from '../../contexts/AuthContext';
+
+import { Header, Footer, Carousel } from '../../containers';
 
 interface MainPageProps {
 
 }
 
 const MainPage: FC<MainPageProps> = () => {
+
+    const user = useContext(AuthContext)
+
     return (
-        <div>
-            MainPage
-        </div>
+        <>
+            <Header />
+            <Carousel />
+            <Carousel />
+            <Carousel />
+            <Carousel />
+            <Footer />
+        </>
     )
 }
 
