@@ -55,8 +55,6 @@ const NavBar: FC<NavBarProps> = () => {
         setIsMenuVisible(true)
     }
 
-    console.log(isFocused)
-
     return (
         <div className='flex flex-row w-full justify-between items-center'>
             <div>
