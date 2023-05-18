@@ -4,6 +4,8 @@ import { SearchBar } from '../SearchBar/SearchBar'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext'
 import { UserIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase'
 
 interface NavBarProps {
 
@@ -46,7 +48,10 @@ const NavBar: FC<NavBarProps> = () => {
                             {isMenuVisible &&
                                 <div className={`slide-in-fwd-center ${!isToggled ? "slide-out-bck-center" : ""} absolute w-28 top-14 right-0 rounded-2xl bg-bg-color flex flex-col justify-center items-center`}>
                                     <div className='w-full px-4 py-4 border-b flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-t-2xl'>Watch List</div>
-                                    <div className='w-full px-4 py-4 flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-b-2xl'>Sign Out</div>
+                                    <div onClick={() => {
+                                        signOut(auth)
+                                        navigate('/login')
+                                    }} className='w-full px-4 py-4 flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-b-2xl'>Sign Out</div>
                                 </div>
                             }
                             <button onClick={handleToggleMenu} className='px-5 py-3 bg-bg-color rounded-2xl flex flex-row justify-between items-center text-text-color transition-all hover:bg-accent-color gap-3'>
