@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext';
 import { Header, Footer, Carousel } from '../../containers';
 
@@ -9,17 +9,25 @@ interface MainPageProps {
 
 const MainPage: FC<MainPageProps> = () => {
 
-    const user = useContext(AuthContext)
+    const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
+
+    const handleMenuToggle = () => {
+        setIsMenuToggled(!isMenuToggled)
+    }
 
     return (
-        <>
-            <Header />
-            <Carousel />
-            <Carousel />
-            <Carousel />
-            <Carousel />
-            <Footer />
-        </>
+        <div className='flex flex-col gap-12'>
+            <Header handleMenuToggle={handleMenuToggle} />
+            {!isMenuToggled &&
+                <>
+                    <Carousel content='movies' />
+                    <Carousel content='series' />
+                    <Carousel content='whatToWatch' />
+                    <Carousel content='watchList' />
+                    <Footer />
+                </>
+            }
+        </div>
     )
 }
 

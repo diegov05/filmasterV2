@@ -10,11 +10,12 @@ import images from "../../assets"
 import { AuthContext } from '../../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
-interface HeaderProps {
 
+interface HeaderProps {
+    handleMenuToggle: () => void
 }
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC<HeaderProps> = (props) => {
 
     const [movie, setMovie] = useState<Movie | null>(null);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
@@ -23,6 +24,8 @@ const Header: FC<HeaderProps> = () => {
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const user = useContext(AuthContext)
     const navigate = useNavigate()
+
+    const { handleMenuToggle } = props
 
     useEffect(() => {
         async function fetchData() {
@@ -50,11 +53,13 @@ const Header: FC<HeaderProps> = () => {
     const handleToggleMenu = () => {
         if (isMenuVisible) {
             setIsMenuToggled(false)
+            handleMenuToggle()
             setTimeout(() => {
                 setIsMenuVisible(false)
             }, 500)
             return
         }
+        handleMenuToggle()
         setIsMenuToggled(true)
         setIsMenuVisible(true)
     }
