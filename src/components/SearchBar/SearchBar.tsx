@@ -61,7 +61,7 @@ const SearchBar: FC<SearchBarProps> = () => {
                 <div className='px-5 py-3 text-xs rounded-l-2xl bg-bg-color border-r border-zinc-300'>
                     <MagnifyingGlassIcon className='w-4 h-4 text-text-color' />
                 </div>
-                <input type='search' className='outline-none border-none flex flex-row justify-start items-center gap-4 bg-bg-color px-5 py-3 rounded-r-2xl text-xs' placeholder='Search for movies...' value={query} onChange={handleSearch} onFocus={handleFocus} />
+                <input type='search' className='w-full outline-none border-none flex flex-row justify-start items-center gap-4 bg-bg-color px-5 py-3 rounded-r-2xl text-xs' placeholder='Search for movies...' value={query} onChange={handleSearch} onFocus={handleFocus} />
             </div>
             {isFocused && <div ref={resultsRef} className='search-bar absolute w-full sm:max-4xl:w-96 max-h-[28rem] overflow-y-scroll right-0 bg-bg-color top-14 rounded-2xl border border-zinc-300 sm:max-4xl:border-none sm:max-4xl:outline-none'>
                 {results.map((movie) => (
