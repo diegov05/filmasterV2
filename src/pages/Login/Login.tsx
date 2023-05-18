@@ -51,7 +51,7 @@ const Login: FC<LoginProps> = () => {
     }
 
     return (
-        <div className='slide-in-fwd-center flex flex-row overflow-hidden bg-bg-color'>
+        <div className='slide-in-fwd-center h-screen flex flex-row overflow-hidden bg-bg-color'>
             {canShow && <Notification message={message} success={iconIndex} />}
             <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
             <div className='flex flex-col w-full h-full p-8 justify-center items-center sm:max-4xl:p-12 sm:max-4xl:justify-start sm:max-4xl:items-start gap-20'>
