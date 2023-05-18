@@ -56,14 +56,14 @@ const SearchBar: FC<SearchBarProps> = () => {
     }
 
     return (
-        <div className='relative flex flex-col'>
+        <div className='border border-zinc-300 sm:max-4xl:outline-none sm:max-4xl:border-none relative flex flex-col rounded-2xl'>
             <div className='flex flex-row'>
                 <div className='px-5 py-3 text-xs rounded-l-2xl bg-bg-color border-r border-zinc-300'>
                     <MagnifyingGlassIcon className='w-4 h-4 text-text-color' />
                 </div>
                 <input type='search' className='outline-none border-none flex flex-row justify-start items-center gap-4 bg-bg-color px-5 py-3 rounded-r-2xl text-xs' placeholder='Search for movies...' value={query} onChange={handleSearch} onFocus={handleFocus} />
             </div>
-            {isFocused && <div ref={resultsRef} className='search-bar absolute w-96 max-h-[28rem] overflow-y-scroll right-0 bg-bg-color top-14 rounded-2xl'>
+            {isFocused && <div ref={resultsRef} className='search-bar absolute w-full sm:max-4xl:w-96 max-h-[28rem] overflow-y-scroll right-0 bg-bg-color top-14 rounded-2xl border border-zinc-300 sm:max-4xl:border-none sm:max-4xl:outline-none'>
                 {results.map((movie) => (
                     <MovieResult movie={movie} key={movie.id} mediaType={movie.media_type} />
                 ))}

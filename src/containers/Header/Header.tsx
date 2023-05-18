@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from 'react'
 import { Movie } from '../../interfaces/interfaces';
 import { key } from '../../requests';
 import axios from "axios"
-import { Loading, NavBar } from '../../components';
+import { Loading, NavBar, SearchBar } from '../../components';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useNavigate } from 'react-router-dom';
 import images from "../../assets"
@@ -17,7 +17,9 @@ const Header: FC<HeaderProps> = () => {
 
     const [movie, setMovie] = useState<Movie | null>(null);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
-    const [isToggled, setIsToggled] = useState<boolean>(false);
+    const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
+    const [isSearchToggled, setIsSearchToggled] = useState<boolean>(false);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
     const user = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -46,14 +48,26 @@ const Header: FC<HeaderProps> = () => {
 
     const handleToggleMenu = () => {
         if (isMenuVisible) {
-            setIsToggled(false)
+            setIsMenuToggled(false)
             setTimeout(() => {
                 setIsMenuVisible(false)
             }, 500)
             return
         }
-        setIsToggled(true)
+        setIsMenuToggled(true)
         setIsMenuVisible(true)
+    }
+
+    const handleToggleSearch = () => {
+        if (isSearching) {
+            setIsSearchToggled(false)
+            setTimeout(() => {
+                setIsSearching(false)
+            }, 500)
+            return
+        }
+        setIsSearchToggled(true)
+        setIsSearching(true)
     }
 
     if (!movie) {
@@ -68,7 +82,7 @@ const Header: FC<HeaderProps> = () => {
         <div className='slide-in-fwd-center'>
             <div className='absolute bg-gradient-to-tr from-black flex flex-col justify-between w-full h-full p-10' />
             {isMenuVisible &&
-                <div className={`sm:max-4xl:hidden slide-in-top ${!isToggled ? "slide-out-top" : ""} absolute z-50 w-screen h-screen bg-zinc-800 flex flex-col gap-20 p-10`}>
+                <div className={`sm:max-4xl:hidden slide-in-top ${!isMenuToggled ? "slide-out-top" : ""} absolute z-50 w-screen h-screen bg-zinc-800 flex flex-col gap-20 p-10`}>
                     <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
                     <div className='flex flex-row justify-between items-center'>
                         <div className='w-max'>
@@ -80,7 +94,7 @@ const Header: FC<HeaderProps> = () => {
                         </button>
                     </div>
                     <div className='flex flex-col justify-center items-start gap-10'>
-                        <button onClick={() => { }} className='w-full'>
+                        <button onClick={handleToggleSearch} className='w-full'>
                             <h1 className='w-max font-bold text-xl pb-4 text-bg-color'>Search</h1>
                             <div className='h-0.5 bg-zinc-700' />
                         </button>
@@ -115,6 +129,21 @@ const Header: FC<HeaderProps> = () => {
                     </div>
                 </div>
             }
+            {isSearching && (
+                <div className={`sm:max-4xl:hidden slide-in-bottom ${!isSearchToggled ? "slide-out-bottom" : ""} absolute z-50 w-screen h-screen bg-bg-color flex flex-col gap-20 p-10`}>
+                    <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
+                    <div className='flex flex-row justify-between items-center'>
+                        <div className='w-max'>
+                            <h1 className='w-max font-bold text-2xl pb-4 text-text-color'>Search</h1>
+                            <div className='w-20 h-1 bg-gradient' />
+                        </div>
+                        <button onClick={handleToggleSearch} className='sm:max-4xl:hidden bg-bg-color p-2 h-min rounded-xl flex flex-col justify-center items-center'>
+                            <XMarkIcon className='w-4 h-4 text-text-color' />
+                        </button>
+                    </div>
+                    <SearchBar />
+                </div>
+            )}
             <div className='absolute flex flex-col justify-between w-full h-full p-10'>
                 <div className='flex flew-row w-full justify-between'>
                     <NavBar />
