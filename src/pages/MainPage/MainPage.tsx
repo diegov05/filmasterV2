@@ -1,7 +1,7 @@
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext';
-
 import { Header, Footer, Carousel } from '../../containers';
+
 
 interface MainPageProps {
 
