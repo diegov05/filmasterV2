@@ -1,4 +1,4 @@
-export const key: string = "bf0048d3c2f01f2c4e53d30b41cea183"
+const key: string = "bf0048d3c2f01f2c4e53d30b41cea183"
 
 const requests = {
     popularMoviesRequest: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&page=1&without_genres=27,14`,
@@ -14,4 +14,4 @@ const requests = {
 
 }
 
-export default requests
+export { requests, key }
