@@ -7,6 +7,7 @@ const requests = {
     topRatedMoviesRequest: `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&language=en-US&page=1&without_genres=27,14`,
     upcomingMoviesRequest: `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=1&without_genres=27,14`,
     trendingMoviesRequest: `https://api.themoviedb.org/3/trending/all/day?api_key=${key}&without_genres=27,14`,
+    nowPlayingMovies: `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=1`,
     popularSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=1&with_original_language=en&without_genres=27,14`,
     trendingSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=2&with_original_language=en&without_genres=27,14`,
     topRatedSeriesRequest: `https://api.themoviedb.org/3/tv/top_rated?api_key=${key}&language=en-US&page=1&with_original_language=en&without_genres=27,14`,
