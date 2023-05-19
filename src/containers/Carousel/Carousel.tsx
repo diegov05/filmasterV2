@@ -55,6 +55,9 @@ const Carousel: FC<CarouselProps> = (props) => {
                 axios.get(requests.nowPlayingMovies).then((response) => {
                     setShows(response.data.results)
                 })
+                break;
+            case "watchList":
+                break;
         }
     }, []);
 
@@ -153,6 +156,31 @@ const Carousel: FC<CarouselProps> = (props) => {
                                     {shows.map((show) => (
                                         <MovieCard key={show.id} movie={show} mediaType={show.media_type} />
                                     ))}
+                                </div>
+                            </div>
+                        </div>
+                        <button className="hidden lg:max-4xl:block px-2 py-1" onClick={handleRightClick}>
+                            <ChevronRightIcon className="hidden sm:max-4xl:block w-8 h-8 text-text-color" />
+                        </button>
+                    </div>
+                </div>
+            )}
+            {content === "watchList" && (
+                <div className='slide-in-fwd-center flex flex-col gap-4 s:max-md:gap-8 md:max-4xl:gap-16'>
+                    <div className='w-max'>
+                        <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Watch List</h1>
+                        <div className='w-full h-1 bg-gradient' />
+                    </div>
+                    <div className='flex flex-row justify-between items-center'>
+                        {showLeftButton && (
+                            <button className="hidden lg:max-4xl:block px-2 py-1" onClick={handleLeftClick}>
+                                <ChevronLeftIcon className="hidden sm:max-4xl:block w-8 h-8 text-text-color" />
+                            </button>
+                        )}
+                        <div ref={containerRef} className="no-scrollbar relative flex flex-row items-center justify-between overflow-x-auto">
+                            <div className="flex flex-col items-start">
+                                <div className="flex overflow-x-visible gap-4 sm:max-4xl:gap-12 pb-10">
+                                    Watch List not yet implemented...
                                 </div>
                             </div>
                         </div>
