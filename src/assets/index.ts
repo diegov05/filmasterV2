@@ -4,6 +4,7 @@ import logoIcon from "./logo/logo_img.png"
 import logoPurpleIcon from "./logo/logo_img_purple.png"
 import topography from './topography.svg'
 import gradient from './purple-golden-gradient.png'
+import footerImage from './footerImage.png'
 
 export default {
     logoBlack,
@@ -11,5 +12,6 @@ export default {
     logoIcon,
     logoPurpleIcon,
     topography,
-    gradient
+    gradient,
+    footerImage
 }
