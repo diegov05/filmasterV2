@@ -2,7 +2,6 @@ import { FC, useState } from 'react'
 import { Movie } from '../../interfaces/interfaces';
 import { VideoCameraIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import { AddToWatchList } from '../AddToWatchList/AddToWatchList';
-import "./MovieCard.css"
 
 interface MovieCardProps {
     movie: Movie

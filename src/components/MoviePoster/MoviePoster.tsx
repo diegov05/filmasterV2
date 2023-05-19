@@ -27,7 +27,7 @@ const MoviePoster: FC<MoviePosterProps> = (props) => {
 
 
     return (
-        <div onMouseEnter={handleToggleOverlay} onMouseLeave={handleToggleOverlay} className='disable-selection cursor-pointer w-48 md:max-4xl:w-64 h-full'>
+        <div onMouseEnter={handleToggleOverlay} onMouseLeave={handleToggleOverlay} className='disable-selection slide-in-fwd-center cursor-pointer w-48 md:max-4xl:w-64 h-full'>
             {isShowing && <div className={`flex flex-col justify-start items-start p-4 absolute slide-in-fwd-center ${!isFocused ? "slide-out-bck-center" : ""} w-48 md:max-4xl:w-64 bg-gradient-to-b from-black/40 h-72 md:max-4xl:h-96 rounded-2xl gap-2 `}>
                 <AddToWatchList movie={movie} type='star' />
             </div>}
