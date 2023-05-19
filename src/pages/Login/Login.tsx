@@ -65,7 +65,7 @@ const Login: FC<LoginProps> = () => {
                             <input className='input-border py-4 px-8 sm:max-4xl:w-96 sm:max-4xl:px-8 sm:max-4xl:py-4 rounded-2xl' type="email" name="email" id="email" onChange={e => setEmail(e.target.value)} required placeholder='Email' />
                             <input className='input-border py-4 px-8 sm:max-4xl:w-96 sm:max-4xl:px-8 sm:max-4xl:py-4 rounded-2xl' type="password" name="password" id="password" onChange={e => setPassword(e.target.value)} required placeholder='Password' />
                             <div className='flex flex-col gap-4'>
-                                <input className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-4 pw-16 rounded-2xl font-bold text-xl text-bg-color' type="submit" value="Log In" />
+                                <input className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-4 rounded-2xl font-bold text-xl text-bg-color' type="submit" value="Log In" />
                                 <button type='button' onClick={() => {
                                     setMessage("You're being redirected in a few seconds...")
                                     setIconIndex(1)
