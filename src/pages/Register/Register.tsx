@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { Loading, Notification } from '../../components'
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth'
 import images from '../../assets'
@@ -43,7 +44,16 @@ const Register: FC<RegisterProps> = () => {
                 setMessage("Successfully created your account...")
                 setIconIndex(1)
                 setCanShow(true)
-                await createUserWithEmailAndPassword(auth, email, password)
+
+                const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+                const userRef = doc(db, 'users', user.uid)
+                await setDoc(userRef, {
+                    id: user.uid,
+                    email: user.email,
+                    favorites: []
+                })
+
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
