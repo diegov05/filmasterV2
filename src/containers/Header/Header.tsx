@@ -166,7 +166,7 @@ const Header: FC<HeaderProps> = (props) => {
                             Watch
                             <VideoCameraIcon className='sm:max-4xl:w-6 sm:max-4xl:h-6 w-4 h-4' />
                         </button>
-                        <AddToWatchList />
+                        <AddToWatchList movie={movie} type='button' />
                     </div>
                 </div>
             </div>
