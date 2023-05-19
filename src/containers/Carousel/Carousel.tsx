@@ -224,7 +224,7 @@ const Carousel: FC<CarouselProps> = (props) => {
                         <div ref={containerRef} className="no-scrollbar relative flex flex-row items-center justify-between overflow-x-auto">
                             <div className="flex flex-col items-start">
                                 <div className="flex overflow-x-visible gap-4 sm:max-4xl:gap-12 pb-10">
-                                    {userFavoriteMovies.length === 0 ? <span className='w-full flex flex-col justify-start items-start font-bold'>It's very lonely in here...<br /> <span className='font-normal text-sm'>Click on the star to add a movie to favorites!</span></span> : ""}
+                                    {userFavoriteMovies.length === 0 ? <span className='w-full flex flex-col justify-start items-start font-bold h-96'>It's very lonely in here...<br /> <span className='font-normal text-sm'>Click on the star to add a movie to favorites!</span></span> : ""}
                                     {userFavoriteMovies.map((movie => (
                                         <div className='' key={movie.id}>
                                             <MoviePoster key={movie.id} movie={movie} />
