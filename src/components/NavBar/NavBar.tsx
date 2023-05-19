@@ -58,7 +58,7 @@ const NavBar: FC<NavBarProps> = () => {
     return (
         <div className='flex flex-row w-full justify-between items-center'>
             <div>
-                <img className='w-28 md:max-4xl:w-36' src={images.logoWhite} alt="logo" />
+                <img onClick={() => navigate('/')} className='cursor-pointer w-28 md:max-4xl:w-36' src={images.logoWhite} alt="logo" />
             </div>
             <div className='hidden sm:max-4xl:flex flex-row justify-end items-center gap-4'>
                 <SearchBar />

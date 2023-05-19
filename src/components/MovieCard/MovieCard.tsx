@@ -2,15 +2,17 @@ import { FC, useState } from 'react'
 import { Movie } from '../../interfaces/interfaces';
 import { VideoCameraIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import { AddToWatchList } from '../AddToWatchList/AddToWatchList';
+import { useNavigate } from 'react-router-dom';
 
 interface MovieCardProps {
     movie: Movie
-    mediaType: string
 }
 
 const MovieCard: FC<MovieCardProps> = (props) => {
 
-    const { movie, mediaType } = props
+    const { movie } = props
+    const mediaType = movie?.title ? "movie" : "tv"
+    const navigate = useNavigate()
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [isShowing, setIsShowing] = useState<boolean>(false);
@@ -51,7 +53,7 @@ const MovieCard: FC<MovieCardProps> = (props) => {
                 <div>
                     <h1 className='text-text-color font-bold text-xs sm:max-4xl:text-base'>{movie.title}</h1>
                 </div>
-                <button className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-1 sm:max-4xl:py-2 pw-16 rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm text-bg-color'>Watch Options
+                <button onClick={() => navigate(`/movie/${movie.id}?mediatype=${mediaType}`)} className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-1 sm:max-4xl:py-2 pw-16 rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm text-bg-color'>Watch Options
                 </button>
                 <div className='flex flex-row gap-2 justify-start items-start'>
                     <button className='flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#E6E6E6] text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-accent-color hover:text-text-color'>

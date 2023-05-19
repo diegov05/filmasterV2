@@ -198,7 +198,7 @@ const Carousel: FC<CarouselProps> = (props) => {
                             <div className="flex flex-col items-start">
                                 <div className="flex overflow-x-visible gap-4 sm:max-4xl:gap-12 pb-10">
                                     {shows.map((show) => (
-                                        <MovieCard key={show.id} movie={show} mediaType={show.media_type} />
+                                        <MovieCard key={show.id} movie={show} />
                                     ))}
                                 </div>
                             </div>
