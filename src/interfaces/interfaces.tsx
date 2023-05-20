@@ -1,6 +1,7 @@
 export interface Movie {
     adult: boolean;
     backdrop_path: string | null;
+    credits: { cast: Credit[] };
     belongs_to_collection: {
         id: number;
         name: string;
@@ -37,6 +38,7 @@ export interface Movie {
     media_type: string;
     revenue: number;
     runtime: number | null;
+    episode_run_time: number | null;
     spoken_languages: {
         iso_639_1: string;
         name: string;
@@ -58,23 +60,6 @@ export interface Movie {
     reviews?: ReviewResults
 }
 
-export interface MovieDetails {
-    id: number;
-    title: string;
-    poster_path: string;
-    genres: { id: number; name: string }[];
-    credits: {
-        crew: { id: number; name: string; department: string }[];
-        cast: CastMember[];
-    };
-}
-
-export interface Person {
-    id: number;
-    name: string;
-}
-
-
 export interface Provider {
     provider_id: number;
     provider_name: string;
@@ -82,10 +67,17 @@ export interface Provider {
     display_priority: number;
 }
 
-export interface CastMember {
-    id: number;
-    name: string;
+export interface Credit {
+    cast_id: number;
     character: string;
+    credit_id: string;
+    gender: number | null;
+    id: number;
+    known_for_department: string;
+    name: string;
+    order: number;
+    original_name: string;
+    popularity: number;
     profile_path: string | null;
 }
 
@@ -105,21 +97,6 @@ export interface Review {
     updated_at: string;
     url: string;
     id: string;
-}
-
-export interface LocationState {
-    mediaType: string;
-}
-
-export interface RatingMovieData {
-    ratings: Rating[]
-}
-
-export interface Rating {
-    source: string;
-    value: number;
-    score: number;
-    votes: number;
 }
 
 export interface UserFavorites {
