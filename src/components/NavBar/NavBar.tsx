@@ -72,11 +72,10 @@ const NavBar: FC<NavBarProps> = () => {
                         <div ref={userRef} className='relative'>
                             {isMenuVisible && isFocused &&
                                 <div className={`slide-in-fwd-center ${!isToggled ? "slide-out-bck-center" : ""} absolute w-28 top-14 right-0 rounded-2xl bg-bg-color flex flex-col justify-center items-center`}>
-                                    <div className='w-full px-4 py-4 border-b flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-t-2xl'>Watch List</div>
                                     <div onClick={() => {
                                         signOut(auth)
                                         navigate('/login')
-                                    }} className='w-full px-4 py-4 flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-b-2xl'>Sign Out</div>
+                                    }} className='w-full px-4 py-4 flex justify-center items-center font-medium cursor-pointer transition-all hover:bg-accent-color rounded-2xl'>Sign Out</div>
                                 </div>
                             }
                             <button onFocus={handleFocus} onClick={handleToggleMenu} className='px-5 py-3 bg-bg-color rounded-2xl flex flex-row justify-between items-center text-text-color transition-all hover:bg-accent-color gap-3'>
