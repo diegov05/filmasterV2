@@ -6,6 +6,7 @@ import { NavBar } from "./NavBar/NavBar";
 import { MoviePoster } from "./MoviePoster/MoviePoster";
 import { Loading } from "./Loading/Loading";
 import { Notification } from "./Notification/Notification";
+import { Review } from "./Review/Review";
 
 export {
     AddToWatchList,
@@ -15,5 +16,6 @@ export {
     NavBar,
     SearchBar,
     Loading,
-    Notification
+    Notification,
+    Review
 }
