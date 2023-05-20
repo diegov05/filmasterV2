@@ -6,6 +6,8 @@ import "./MovieResult.css"
 interface MovieResultProps {
     movie: Movie
     mediaType: string
+    handleToggleMenu?: () => void
+    handleToggleSearch?: () => void
 }
 
 const MovieResult: FC<MovieResultProps> = (props) => {
@@ -16,8 +18,11 @@ const MovieResult: FC<MovieResultProps> = (props) => {
 
     return (
         <div onClick={() => {
-            navigate('/login')
-        }} className='transition-all hover:cursor-pointer hover:opacity-80 flex flex-row px-5 py-3 justify-start gap-4 border-b border-zinc-300 items-start'>
+            props.handleToggleMenu ? props.handleToggleMenu() : ""
+            props.handleToggleSearch ? props.handleToggleSearch() : ""
+            navigate(`/movie/${movie.id}?mediatype=${mediaType}`)
+        }
+        } className='transition-all hover:cursor-pointer hover:opacity-80 flex flex-row px-5 py-3 justify-start gap-4 border-b border-zinc-300 items-start'>
             <img className='w-20' src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title ? movie.title : movie.name} />
             <div className='flex flex-col gap-1'>
                 <span className='font-bold'>{movie.title ? movie.title : movie.name}</span>

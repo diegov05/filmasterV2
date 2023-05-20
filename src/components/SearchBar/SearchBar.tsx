@@ -7,10 +7,11 @@ import axios from 'axios';
 import './SearchBar.css'
 
 interface SearchBarProps {
-
+    handleToggleMenu?: () => void
+    handleToggleSearch?: () => void
 }
 
-const SearchBar: FC<SearchBarProps> = () => {
+const SearchBar: FC<SearchBarProps> = (props) => {
 
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<Movie[]>([]);
@@ -65,7 +66,7 @@ const SearchBar: FC<SearchBarProps> = () => {
             </div>
             {isFocused && <div ref={resultsRef} className='search-bar absolute w-full sm:max-4xl:w-96 max-h-[28rem] overflow-y-scroll right-0 bg-bg-color top-14 rounded-2xl border border-zinc-300 sm:max-4xl:border-none sm:max-4xl:outline-none'>
                 {results.map((movie) => (
-                    <MovieResult movie={movie} key={movie.id} mediaType={movie.media_type} />
+                    <MovieResult handleToggleMenu={props.handleToggleMenu} handleToggleSearch={props.handleToggleSearch} movie={movie} key={movie.id} mediaType={movie.media_type} />
                 ))}
             </div>}
         </div>

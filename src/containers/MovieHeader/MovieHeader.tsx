@@ -1,10 +1,7 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import { Movie } from '../../interfaces/interfaces';
-import { key } from '../../requests';
-import axios from "axios"
 import { AddToWatchList, Loading, NavBar, SearchBar } from '../../components';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
-import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import images from "../../assets"
 import { AuthContext } from '../../contexts/AuthContext';
@@ -123,7 +120,7 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
                             <XMarkIcon className='w-4 h-4 text-text-color' />
                         </button>
                     </div>
-                    <SearchBar />
+                    <SearchBar handleToggleMenu={handleToggleMenu} handleToggleSearch={handleToggleSearch} />
                 </div>
             )}
             <div className='absolute flex flex-col justify-between w-full h-full p-10'>
@@ -133,13 +130,13 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
                         <Bars3Icon className='w-4 h-4 text-text-color' />
                     </button>
                 </div>
-                <div className='flex flex-row gap-4 justify-start items-end'>
-                    <div>
-                        <img className="hidden s:max-4xl:block w-36 rounded-2xl" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="" />
-                    </div>
+                <div className='flex flex-row gap-4 justify-start items-start s:max-4xl:items-end'>
+
+                    <img className="hidden s:max-4xl:block w-36 rounded-2xl" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="" />
+
                     <div className='flex flex-col gap-6'>
                         <div>
-                            <h1 className='font-black text-2xl xs:max-sm:text-3xl sm:max-4xl:text-5xl text-bg-color'>{movie.title}</h1>
+                            <h1 className='font-black text-2xl xs:max-sm:text-3xl sm:max-4xl:text-5xl text-bg-color'>{movie.title ? movie.title : movie.name}</h1>
                         </div>
                         <div className='flex-col items-start flex xs:max-4xl:flex-row gap-4 justify-start xs:max-4xl:items-center'>
                             <AddToWatchList movie={movie} type='button' />
