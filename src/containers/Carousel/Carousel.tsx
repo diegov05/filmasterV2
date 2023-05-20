@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { Movie, UserFavorites } from '../../interfaces/interfaces';
 import { requests } from '../../requests';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { Loading, MovieCard, MoviePoster } from '../../components';
+import { Loading, MovieCard, MoviePoster, FilterButton } from '../../components';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { collection, doc, onSnapshot } from 'firebase/firestore';
@@ -20,7 +20,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     const [showLeftButton, setShowLeftButton] = useState<boolean>(false);
     const [userFavoriteMovies, setUserFavoriteMovies] = useState<Movie[]>([])
     const [user, setUser] = useState<User | null>(null);
-
+    const [index, setIndex] = useState<number>()
 
     const content = props.content;
 
@@ -47,15 +47,29 @@ const Carousel: FC<CarouselProps> = (props) => {
         });
     };
 
+    const handleIndexChange = (index: number) => {
+        switch (index) {
+            case 0:
+                setIndex(0)
+                break;
+            case 1:
+                setIndex(1)
+                break;
+            case 2:
+                setIndex(2)
+                break;
+        }
+    }
+
     useEffect(() => {
         switch (content) {
             case "movies":
-                axios.get(requests.popularMoviesRequest).then((response) => {
+                axios.get(index === 0 ? requests.nowPlayingMovies : index === 1 ? requests.upcomingMoviesRequest : requests.popularMoviesRequest).then((response) => {
                     setShows(response.data.results);
                 });
                 break;
             case "series":
-                axios.get(requests.popularSeriesRequest).then((response) => {
+                axios.get(index === 0 ? requests.onAirSeriesRequest : index === 1 ? requests.popularSeriesRequest : requests.trendingSeriesRequest).then((response) => {
                     setShows(response.data.results);
                 });
                 break;
@@ -67,7 +81,7 @@ const Carousel: FC<CarouselProps> = (props) => {
             case "watchList":
                 break;
         }
-    }, []);
+    }, [index]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -130,9 +144,12 @@ const Carousel: FC<CarouselProps> = (props) => {
             <img className='absolute -z-10 top-[25rem] -left-60 opacity-40 rounded-2xl' src={images.gradient} />
             {content === "movies" && (
                 <div className='slide-in-fwd-center flex flex-col gap-4 s:max-md:gap-8 md:max-4xl:gap-16'>
-                    <div className='w-max'>
-                        <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Movies</h1>
-                        <div className='w-full h-1 bg-gradient' />
+                    <div className='flex flex-row gap-8 md:max-4xl:justify-between items-center'>
+                        <div className='w-max'>
+                            <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Movies</h1>
+                            <div className='w-full h-1 bg-gradient' />
+                        </div>
+                        <FilterButton handleIndexChange={handleIndexChange} />
                     </div>
                     <div className='flex flex-row justify-between items-center'>
                         {showLeftButton && (
@@ -157,9 +174,12 @@ const Carousel: FC<CarouselProps> = (props) => {
             )}
             {content === "series" && (
                 <div className='slide-in-fwd-center flex flex-col gap-4 s:max-md:gap-8 md:max-4xl:gap-16'>
-                    <div className='w-max'>
-                        <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Series</h1>
-                        <div className='w-full h-1 bg-gradient' />
+                    <div className='flex flex-row gap-8 md:max-4xl:justify-between items-center'>
+                        <div className='w-max'>
+                            <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Series</h1>
+                            <div className='w-full h-1 bg-gradient' />
+                        </div>
+                        <FilterButton handleIndexChange={handleIndexChange} />
                     </div>
                     <div className='flex flex-row justify-between items-center'>
                         {showLeftButton && (
