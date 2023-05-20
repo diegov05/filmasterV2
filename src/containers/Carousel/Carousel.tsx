@@ -20,7 +20,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     const [showLeftButton, setShowLeftButton] = useState<boolean>(false);
     const [userFavoriteMovies, setUserFavoriteMovies] = useState<Movie[]>([])
     const [user, setUser] = useState<User | null>(null);
-    const [index, setIndex] = useState<number>()
+    const [index, setIndex] = useState<number>(0)
 
     const content = props.content;
 
@@ -47,6 +47,8 @@ const Carousel: FC<CarouselProps> = (props) => {
         });
     };
 
+    console.log(requests.trendingSeriesRequest)
+
     const handleIndexChange = (index: number) => {
         switch (index) {
             case 0:
@@ -70,7 +72,8 @@ const Carousel: FC<CarouselProps> = (props) => {
                 break;
             case "series":
                 axios.get(index === 0 ? requests.onAirSeriesRequest : index === 1 ? requests.popularSeriesRequest : requests.trendingSeriesRequest).then((response) => {
-                    setShows(response.data.results);
+                    index === 2 ? setShows(response.data.results.filter((movie: Movie) => parseInt(movie.first_air_date.slice(0, 4)) >= 2017)) :
+                        setShows(response.data.results);
                 });
                 break;
             case "whatToWatch":
