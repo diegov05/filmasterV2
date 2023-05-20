@@ -55,10 +55,10 @@ const Review: FC<ReviewProps> = (props) => {
                 <p className='text-xs md:max-4xl:text-base md:max-4xl:w-[80ch]'>{review.content.slice(0, 200)}...</p>
             </div>
             <div className='flex flex-row gap-2'>
-                <button onClick={() => handleLikeOrDislike(0)} disabled={isLikeSelected} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-button-primary-color text-bg-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all ${isLikeSelected ? "bg-green-500" : "hover:bg-accent-color hover:text-text-color"}`}>
+                <button onClick={() => handleLikeOrDislike(0)} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-button-primary-color text-bg-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all ${isLikeSelected ? "bg-green-500" : "hover:bg-accent-color hover:text-text-color"}`}>
                     <HandThumbUpIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                 </button>
-                <button onClick={() => handleLikeOrDislike(1)} disabled={isDislikeSelected} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all ${isDislikeSelected ? "bg-red-600" : "hover:bg-accent-color hover:text-text-color"}`}>
+                <button onClick={() => handleLikeOrDislike(1)} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all ${isDislikeSelected ? "bg-red-600" : "hover:bg-accent-color hover:text-text-color"}`}>
                     <HandThumbDownIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                 </button>
                 <button className=' flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-accent-color text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-white hover:shadow-sm hover:shadow-zinc-500 hover:text-text-color'>
