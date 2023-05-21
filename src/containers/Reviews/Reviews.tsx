@@ -51,9 +51,16 @@ const Reviews: FC<ReviewsProps> = (props) => {
     )
 
     const userRef = useRef<HTMLDivElement>(null);
+    const editRef = useRef<HTMLDivElement>(null);
     const reviewsCollectionRef = collection(db, 'reviews')
 
     const handleToggleReviewing = () => {
+        if (!isReviewing) {
+            userRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            })
+        }
         setIsReviewing(prevIsReviewing => !prevIsReviewing);
     }
 
@@ -71,6 +78,9 @@ const Reviews: FC<ReviewsProps> = (props) => {
                 mediaType: mediaType,
                 reviewContent: "",
                 reviewRating: 0
+            })
+            editRef.current?.scrollIntoView({
+                behavior: "smooth"
             })
             setIsEditing(true)
         }
@@ -165,7 +175,6 @@ const Reviews: FC<ReviewsProps> = (props) => {
 
                         querySnapshot.forEach((doc) => {
                             const reviewData = doc.data() as review;
-                            console.log(movie.id)
                             fetchedReviews.push(reviewData);
                         });
 
@@ -241,7 +250,7 @@ const Reviews: FC<ReviewsProps> = (props) => {
                             {[...Array(10)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`cursor-pointer transition-all text-text-color ${index < rating ? 'text-amber-400 fill-amber-400' : ''
+                                    className={`cursor-pointer transition-all  ${index < rating ? 'text-amber-400 fill-amber-400' : ''
                                         } w-8`}
                                     onClick={() => handleStarClick(index + 1)}
                                 />
@@ -256,7 +265,7 @@ const Reviews: FC<ReviewsProps> = (props) => {
             )}
             {isEditing && (
                 <div ref={userRef} className='slide-in-fwd-center shadow-xl z-50 flex flex-col justify-center items-center gap-8 shadow-black/40 absolute rounded-2xl bottom-96 bg-bg-color p-6 xs:max-4xl:p-10'>
-                    <div className='slide-in-fwd-center w-max'>
+                    <div ref={editRef} className='slide-in-fwd-center w-max'>
                         <h1 className='w-max font-bold text-2xl xs:max-sm:text-3xl sm:max-4xl:text-4xl pb-4 text-text-color'>Edit Review</h1>
                         <div className='slide-in-fwd-center w-full h-1 bg-gradient' />
                     </div>
@@ -265,7 +274,7 @@ const Reviews: FC<ReviewsProps> = (props) => {
                             {[...Array(10)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`cursor-pointer transition-all text-text-color ${index < rating ? 'text-amber-400 fill-amber-400' : ''
+                                    className={`cursor-pointer transition-all ${index < rating ? 'text-amber-400 fill-amber-400' : ''
                                         } w-8`}
                                     onClick={() => handleStarClick(index + 1)}
                                 />
@@ -289,7 +298,7 @@ const Reviews: FC<ReviewsProps> = (props) => {
                             {[...Array(10)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`cursor-pointer transition-all text-text-color ${index < rating ? 'text-amber-400 fill-amber-400' : ''
+                                    className={`cursor-pointer transition-all ${index < rating ? 'text-amber-400 fill-amber-400' : ''
                                         } w-8`}
                                     onClick={() => handleStarClick(index + 1)}
                                 />
