@@ -16,6 +16,7 @@ const MovieCard: FC<MovieCardProps> = (props) => {
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [isShowing, setIsShowing] = useState<boolean>(false);
+    const [isInfoShowing, setIsInfoShowing] = useState<boolean>(false);
 
     const handleToggleOverlay = () => {
         if (isShowing) {
@@ -56,16 +57,19 @@ const MovieCard: FC<MovieCardProps> = (props) => {
                 <button onClick={() => navigate(`/movie/${movie.id}?mediatype=${mediaType}`)} className='bg-gradient cursor-pointer transition-all duration-300 hover:opacity-80 py-1 sm:max-4xl:py-2 pw-16 rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm text-bg-color'>Watch Options
                 </button>
                 <div className='flex flex-row gap-2 justify-start items-start'>
-                    <button className='flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#E6E6E6] text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-accent-color hover:text-text-color'>
+                    <button onClick={() => navigate(`/movie/${movie.id}?mediatype=${mediaType}`)} className='flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#E6E6E6] text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-accent-color hover:text-text-color'>
                         <VideoCameraIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                         Trailer
                     </button>
-                    <button className='flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#ededed] text-text-color rounded-2xl font-bold text-sm transition-all hover:bg-accent-color hover:text-text-color'>
+                    <button onClick={() => setIsInfoShowing(!isInfoShowing)} className='flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#ededed] text-text-color rounded-2xl font-bold text-sm transition-all hover:bg-accent-color hover:text-text-color'>
                         <InformationCircleIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                     </button>
+                    {isInfoShowing && <div className='slide-in-fwd-center shadow-xl shadow-black/30 absolute left-12  bottom-16 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-[#ededed] text-text-color rounded-2xl font-bold text-[8px] md:max-4xl:text-xs transition-all'>
+                        {movie.overview?.length! > 300 ? `${movie.overview?.slice(0, 300)} ...` : movie.overview}
+                    </div>}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
