@@ -165,8 +165,10 @@ const Reviews: FC<ReviewsProps> = (props) => {
 
                         querySnapshot.forEach((doc) => {
                             const reviewData = doc.data() as review;
+                            console.log(movie.id)
                             fetchedReviews.push(reviewData);
                         });
+
 
                         const filteredReviews = fetchedReviews.filter(
                             (review) =>
@@ -192,6 +194,31 @@ const Reviews: FC<ReviewsProps> = (props) => {
                 fetchReviewsData();
             } else {
                 setUser(null);
+                const fetchReviewsData = async () => {
+                    try {
+                        const querySnapshot = await getDocs(reviewsCollectionRef);
+                        const fetchedReviews: review[] = [];
+
+                        querySnapshot.forEach((doc) => {
+                            const reviewData = doc.data() as review;
+                            fetchedReviews.push(reviewData);
+                        });
+
+                        const filteredReviews = fetchedReviews.filter(
+                            (review) =>
+                                review.movieId === movie.id.toString() &&
+                                review.mediaType === mediaType
+                        );
+
+                        const sortedReviews = filteredReviews.sort(
+                            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+                        );
+                        setLocalReviews(sortedReviews);
+                    } catch (error) {
+                        console.error("Error fetching reviews data:", error);
+                    }
+                    fetchReviewsData()
+                }
             }
         });
         return () => unsubscribe();

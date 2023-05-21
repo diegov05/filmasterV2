@@ -75,7 +75,7 @@ const Movie: FC<MovieProps> = () => {
                         {trailerKey && <Trailer trailerKey={trailerKey} />}
                         {movie.overview && <Overview movie={movie} />}
                         {movie.credits && <Cast movie={movie} />}
-                        {movie.reviews?.results.length! > 0 ? <Reviews movie={movie} /> : ''}
+                        <Reviews movie={movie} />
                     </div>
                     <Footer />
                 </div >
