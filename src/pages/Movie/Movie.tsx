@@ -78,7 +78,7 @@ const Movie: FC<MovieProps> = () => {
                         {movie.reviews?.results.length! > 0 ? <Reviews movie={movie} /> : ''}
                     </div>
                     <Footer />
-                </div>
+                </div >
             )}
         </>
     )
