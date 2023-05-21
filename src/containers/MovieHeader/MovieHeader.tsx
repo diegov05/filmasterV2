@@ -7,6 +7,7 @@ import images from "../../assets"
 import { AuthContext } from '../../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { VideoCameraIcon } from '@heroicons/react/24/outline';
 
 interface MovieHeaderProps {
     movie: Movie
@@ -139,6 +140,10 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
                             <h1 className='font-black text-2xl xs:max-sm:text-3xl sm:max-4xl:text-5xl text-bg-color'>{movie.title ? movie.title : movie.name}</h1>
                         </div>
                         <div className='flex-col items-start flex xs:max-4xl:flex-row gap-4 justify-start xs:max-4xl:items-center'>
+                            {/* <button className='flex flex-row gap-2 justify-center items-center px-5 py-3 bg-button-primary-color text-bg-color rounded-2xl font-bold text-xs sm:max-4xl:text-lg transition-all hover:bg-accent-color hover:text-text-color'>
+                                Watch
+                                <VideoCameraIcon className='sm:max-4xl:w-6 sm:max-4xl:h-6 w-4 h-4' />
+                            </button> */}
                             <AddToWatchList movie={movie} type='button' />
                         </div>
                     </div>
