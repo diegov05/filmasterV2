@@ -85,18 +85,26 @@ export interface ReviewResults {
     results: Review[]
 }
 export interface Review {
-    author: string;
-    author_details: {
+    author?: string;
+    author_details?: {
         avatar_path: string;
         name: string;
         rating?: number;
         username: string;
     }
-    created_at: string;
-    content: string;
-    updated_at: string;
-    url: string;
-    id: string;
+    created_at?: string;
+    content?: string;
+    updated_at?: string;
+    url?: string;
+    id?: string;
+    reviewId?: string
+    userId?: string
+    userName?: string | null
+    date?: string
+    movieId?: string
+    mediaType?: string
+    reviewContent?: string;
+    reviewRating?: number;
 }
 
 export interface UserFavorites {
