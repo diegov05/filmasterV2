@@ -47,8 +47,6 @@ const Carousel: FC<CarouselProps> = (props) => {
         });
     };
 
-    console.log(requests.trendingSeriesRequest)
-
     const handleIndexChange = (index: number) => {
         switch (index) {
             case 0:
