@@ -7,6 +7,8 @@ import { MoviePoster } from "./MoviePoster/MoviePoster";
 import { Loading } from "./Loading/Loading";
 import { Notification } from "./Notification/Notification";
 import { Review } from "./Review/Review";
+import { ReviewingBox } from "./ReviewingBox/ReviewingBox";
+import { EditingBox } from "./EditingBox/EditingBox";
 
 export {
     AddToWatchList,
@@ -17,5 +19,7 @@ export {
     SearchBar,
     Loading,
     Notification,
-    Review
+    Review,
+    ReviewingBox,
+    EditingBox
 }
