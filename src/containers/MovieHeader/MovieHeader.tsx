@@ -60,7 +60,7 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
 
     return (
         <div className='slide-in-fwd-center'>
-            <div className='absolute s:max-4xl:backdrop-blur-md bg-gradient-to-tr from-black flex flex-col justify-between w-full h-full p-10' />
+            < div className='absolute s:max-4xl:backdrop-blur-md bg-gradient-to-tr from-black flex flex-col justify-between w-full h-full p-10' />
             {isMenuVisible &&
                 <div className={`sm:max-4xl:hidden slide-in-top ${!isMenuToggled ? "slide-out-top" : ""} absolute z-50 w-screen h-screen bg-zinc-800 flex flex-col gap-20 p-10`}>
                     <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
@@ -109,21 +109,23 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
                     </div>
                 </div>
             }
-            {isSearching && (
-                <div className={`sm:max-4xl:hidden slide-in-bottom ${!isSearchToggled ? "slide-out-bottom" : ""} absolute z-50 w-screen h-screen bg-bg-color flex flex-col gap-20 p-10`}>
-                    <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
-                    <div className='flex flex-row justify-between items-center'>
-                        <div className='w-max'>
-                            <h1 className='w-max font-bold text-2xl pb-4 text-text-color'>Search</h1>
-                            <div className='w-20 h-1 bg-gradient' />
+            {
+                isSearching && (
+                    <div className={`sm:max-4xl:hidden slide-in-bottom ${!isSearchToggled ? "slide-out-bottom" : ""} absolute z-50 w-screen h-screen bg-bg-color flex flex-col gap-20 p-10`}>
+                        <img className='absolute -z-10 -top-36 -left-48' src={images.gradient} alt="" />
+                        <div className='flex flex-row justify-between items-center'>
+                            <div className='w-max'>
+                                <h1 className='w-max font-bold text-2xl pb-4 text-text-color'>Search</h1>
+                                <div className='w-20 h-1 bg-gradient' />
+                            </div>
+                            <button onClick={handleToggleSearch} className='sm:max-4xl:hidden bg-bg-color p-2 h-min rounded-xl flex flex-col justify-center items-center'>
+                                <XMarkIcon className='w-4 h-4 text-text-color' />
+                            </button>
                         </div>
-                        <button onClick={handleToggleSearch} className='sm:max-4xl:hidden bg-bg-color p-2 h-min rounded-xl flex flex-col justify-center items-center'>
-                            <XMarkIcon className='w-4 h-4 text-text-color' />
-                        </button>
+                        <SearchBar handleToggleMenu={handleToggleMenu} handleToggleSearch={handleToggleSearch} />
                     </div>
-                    <SearchBar handleToggleMenu={handleToggleMenu} handleToggleSearch={handleToggleSearch} />
-                </div>
-            )}
+                )
+            }
             <div className='absolute flex flex-col justify-between w-full h-full p-10'>
                 <div className='flex flew-row w-full justify-between'>
                     <NavBar />
@@ -150,7 +152,7 @@ const MovieHeader: FC<MovieHeaderProps> = (props) => {
                 </div>
             </div>
             <img className='w-full h-[70vh] object-cover' src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt={movie.title} />
-        </div>
+        </div >
     )
 }
 

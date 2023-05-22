@@ -8,7 +8,7 @@ import { db } from '../../firebase';
 interface ReviewProps {
     review: Review
     isEditable?: boolean
-    handleToggleEditing?: () => void
+    handleToggleEditing?: (review: Review) => void
 }
 
 const Review: FC<ReviewProps> = (props) => {
@@ -82,7 +82,7 @@ const Review: FC<ReviewProps> = (props) => {
                 </button>}
                 {isEditable &&
                     <>
-                        <button onClick={handleToggleEditing} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all`}>
+                        <button onClick={() => handleToggleEditing ? handleToggleEditing(review) : ""} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all`}>
                             Edit
                             <PencilSquareIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                         </button>
