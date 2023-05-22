@@ -208,17 +208,16 @@ const Reviews: FC<ReviewsProps> = (props) => {
                         const querySnapshot = await getDocs(reviewsCollectionRef);
                         const fetchedReviews: review[] = [];
 
+
                         querySnapshot.forEach((doc) => {
                             const reviewData = doc.data() as review;
                             fetchedReviews.push(reviewData);
                         });
-
                         const filteredReviews = fetchedReviews.filter(
                             (review) =>
                                 review.movieId === movie.id.toString() &&
                                 review.mediaType === mediaType
                         );
-
                         const sortedReviews = filteredReviews.sort(
                             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
                         );
@@ -226,12 +225,12 @@ const Reviews: FC<ReviewsProps> = (props) => {
                     } catch (error) {
                         console.error("Error fetching reviews data:", error);
                     }
-                    fetchReviewsData()
                 }
+                fetchReviewsData()
             }
         });
         return () => unsubscribe();
-    }, []);
+    }, [movie]);
 
     return (
         <div className='relative pr-10 flex flex-col gap-8'>
