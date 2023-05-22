@@ -1,8 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Review } from '../../interfaces/interfaces';
 import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { collection, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { DocumentData, collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
+import { User, onAuthStateChanged } from 'firebase/auth';
 
 
 interface ReviewProps {
@@ -13,9 +14,17 @@ interface ReviewProps {
 
 const Review: FC<ReviewProps> = (props) => {
 
+    const colors = ["F6F6F6",
+        "290521",
+        "FFD600",
+        "7216F4",
+        "FFFFFF"]
+
+    const { review, isEditable, handleToggleEditing } = props
     const [isLikeSelected, setIsLikeSelected] = useState<boolean>()
     const [isDislikeSelected, setIsDislikeSelected] = useState<boolean>()
-    const { review, isEditable, handleToggleEditing } = props
+    const [user, setUser] = useState<User | null>(null);
+    const [userData, setUserData] = useState<DocumentData | undefined>();
 
     const handleLikeOrDislike = (index: number) => {
         switch (index) {
@@ -49,10 +58,31 @@ const Review: FC<ReviewProps> = (props) => {
         }
     };
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+                const userRef = doc(collection(db, 'users'), user.uid);
+
+                onSnapshot(userRef, (snapshot) => {
+                    const userData = snapshot.data();
+                    setUserData(userData)
+                });
+
+            } else {
+                setUser(null);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    console.log(userData)
+
     return (
         <div className='flex flex-col gap-4 justify-start items-start'>
             <div className='flex flex-row gap-2 justify-start items-center'>
-                <div className='w-4 h-4 rounded-full bg-[#e0e0e0]' />
+                {!review.author ? <img className='w-4 h-4 rounded-full' src={review.avatar} alt={review.userName!} />
+                    : <img className='w-4 h-4 rounded-full' src={`https://source.boringavatars.com/beam/120/${review.author}?colors=${colors.join(",")}`} alt="" />}
                 <p className='font-bold'>{review.author ? review.author : review.userName}</p>
                 <span className="text-gradient">
                     <svg xmlns="http://www.w3.org/2000/svg" fill='none' viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-4 w-4 sm:max-4xl:w-6 sm:max-4xl:h-6">
@@ -77,9 +107,11 @@ const Review: FC<ReviewProps> = (props) => {
                 <button onClick={() => handleLikeOrDislike(1)} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all ${isDislikeSelected ? "bg-red-500" : "hover:bg-accent-color hover:text-text-color"}`}>
                     <HandThumbDownIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                 </button>
-                {!isEditable && <button className=' flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-accent-color text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-white hover:shadow-sm hover:shadow-zinc-500 hover:text-text-color'>
-                    Reply
-                </button>}
+                {!isEditable &&
+                    <button className=' flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-accent-color text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-white hover:shadow-sm hover:shadow-zinc-500 hover:text-text-color'>
+                        Reply
+                    </button>
+                }
                 {isEditable &&
                     <>
                         <button onClick={() => handleToggleEditing ? handleToggleEditing(review) : ""} className={`shadow-sm shadow-zinc-500 flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-white text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all`}>
@@ -91,6 +123,10 @@ const Review: FC<ReviewProps> = (props) => {
                         </button>
                     </>}
 
+            </div>
+            <div className='flex flew-row justify-start items-center gap-2'>
+                <img className='w-10 h-10' src={userData?.avatar} alt="" />
+                <input type="text" className='px-5 py-3 rounded-2xl bg-zinc-300 border-b focus:outline-none text-xs' placeholder='Write a reply...' />
             </div>
         </div>
     )

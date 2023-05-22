@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-react-swc': ^3.0.0
   autoprefixer: ^10.4.14
   axios: ^1.4.0
+  boring-avatars: ^1.7.0
   eslint: ^8.38.0
   eslint-plugin-react-hooks: ^4.6.0
   eslint-plugin-react-refresh: ^0.3.4
@@ -29,6 +30,7 @@ specifiers:
 dependencies:
   '@heroicons/react': 2.0.18_react@18.2.0
   axios: 1.4.0
+  boring-avatars: 1.7.0
   firebase: 9.22.0
   localforage: 1.10.0
   match-sorter: 6.3.1
@@ -1795,6 +1797,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /boring-avatars/1.7.0:
+    resolution: {integrity: sha512-ZNHd8J7C/V0IjQMGQowLJ5rScEFU23WxePigH6rqKcT2Esf0qhYvYxw8s9i3srmlfCnCV00ddBjaoGey1eNOfA==}
+    dev: false
 
   /boxen/5.1.2:
     resolution: {integrity: sha512-9gYgQKXx+1nP8mP7CzFyaUARhg7D3n1dF/FnErWmu9l6JvGpNUN278h0aSb+QjoiKSWG+iZ3uHrcqk0qrY9RQQ==}

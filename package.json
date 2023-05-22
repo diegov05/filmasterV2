@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "axios": "^1.4.0",
+    "boring-avatars": "^1.7.0",
     "firebase": "^9.22.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

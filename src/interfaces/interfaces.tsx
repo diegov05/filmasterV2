@@ -105,6 +105,7 @@ export interface Review {
     mediaType?: string
     reviewContent?: string;
     reviewRating?: number;
+    avatar?: string
 }
 
 export interface UserFavorites {
