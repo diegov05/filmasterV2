@@ -1,13 +1,12 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useState } from 'react';
 import { Movie } from '../../interfaces/interfaces';
 import { AddToWatchList, Loading, NavBar, SearchBar } from '../../components';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
-import images from "../../assets"
+import images from "../../assets";
 import { AuthContext } from '../../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { VideoCameraIcon } from '@heroicons/react/24/outline';
 
 interface MovieHeaderProps {
     movie: Movie

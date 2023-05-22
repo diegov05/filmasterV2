@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { CheckCircleIcon, XCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import "./Notification.css"
 

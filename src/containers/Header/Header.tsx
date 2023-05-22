@@ -1,12 +1,12 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react';
 import { Movie } from '../../interfaces/interfaces';
 import { key } from '../../requests';
-import axios from "axios"
+import axios from "axios";
 import { AddToWatchList, Loading, NavBar, SearchBar } from '../../components';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
-import images from "../../assets"
+import images from "../../assets";
 import { AuthContext } from '../../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import { VideoCameraIcon, CalendarDaysIcon, FilmIcon } from '@heroicons/react/24/outline';
 import { Movie } from '../../interfaces/interfaces';
 

@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react';
 import { Movie } from '../../interfaces/interfaces';
 import { Review } from '../../components';
 import { db } from '../../firebase';

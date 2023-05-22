@@ -1,5 +1,4 @@
-import { FC, useContext, useState } from 'react'
-import { AuthContext } from '../../contexts/AuthContext';
+import { FC, useState } from 'react';
 import { Header, Footer, Carousel } from '../../containers';
 
 

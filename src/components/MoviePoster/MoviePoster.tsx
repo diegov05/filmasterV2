@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState } from 'react';
 import { Movie } from '../../interfaces/interfaces';
 import { AddToWatchList } from '../AddToWatchList/AddToWatchList';
 import { useNavigate } from 'react-router-dom';

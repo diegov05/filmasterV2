@@ -1,10 +1,10 @@
-import { FC, useEffect, useRef, useState } from 'react'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { FC, useEffect, useRef, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Movie } from '../../interfaces/interfaces';
 import { key } from '../../requests';
 import { MovieResult } from '../MovieResult/MovieResult';
 import axios from 'axios';
-import './SearchBar.css'
+import './SearchBar.css';
 
 interface SearchBarProps {
     handleToggleMenu?: () => void

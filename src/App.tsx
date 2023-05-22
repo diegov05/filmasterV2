@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { AuthProvider } from './contexts/AuthContext'
 import { Login, MainPage, Movie, Register } from "./pages"
