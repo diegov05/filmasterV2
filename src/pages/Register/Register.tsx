@@ -96,7 +96,7 @@ const Register: FC<RegisterProps> = () => {
                         </fieldset>
                     </form>
                 </div>
-                <img className='w-32' src={images.logoWhite} alt="" />
+                <img onClick={() => navigate('/')} className='cursor-pointer w-32' src={images.logoWhite} alt="" />
             </div>
             <div className='hidden sm:max-4xl:block w-1/3 h-screen bg-diagonal-gradient'>
                 <svg width="full" height="full" viewBox="0 0 full full" fill="none" xmlns="http://www.w3.org/2000/svg">
