@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { Review } from '../../interfaces/interfaces';
-import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { DocumentData, collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TrashIcon, PaperAirplaneIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { DocumentData, collection, deleteDoc, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { User, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { Reply } from '../Reply/Reply';
 
 
 interface ReviewProps {
@@ -21,10 +23,20 @@ const Review: FC<ReviewProps> = (props) => {
         "FFFFFF"]
 
     const { review, isEditable, handleToggleEditing } = props
+
+    const navigate = useNavigate()
+
     const [isLikeSelected, setIsLikeSelected] = useState<boolean>()
     const [isDislikeSelected, setIsDislikeSelected] = useState<boolean>()
+    const [isReplying, setIsReplying] = useState<boolean>()
+    const [isRepliesShowing, setIsRepliesShowing] = useState<boolean>(false)
     const [user, setUser] = useState<User | null>(null);
     const [userData, setUserData] = useState<DocumentData | undefined>();
+    const [replyContent, setReplyContent] = useState<string>("");
+    const [replies, setReplies] = useState<DocumentData[]>([])
+    const repliesCollectionRef = collection(db, 'replies')
+
+    const filteredReplies = replies.filter((reply) => reply.id ? reply.id : reply.reviewId === review.id ? review.id : review.reviewId);
 
     const handleLikeOrDislike = (index: number) => {
         switch (index) {
@@ -58,6 +70,30 @@ const Review: FC<ReviewProps> = (props) => {
         }
     };
 
+    const handleUploadReply = async () => {
+        try {
+            if (!replyContent) return;
+
+            const repliesCollectionRef = collection(db, 'replies');
+            const newReply = {
+                replyId: doc(repliesCollectionRef).id,
+                content: replyContent,
+                replyAuthorId: user?.uid,
+                replyAuthorName: user?.email,
+                reviewAuthorName: review.author ? review.author : review.userName,
+                reviewId: review.id ? review.id : review.reviewId,
+                avatar: userData!.avatar
+            };
+
+            await setDoc(doc(repliesCollectionRef, newReply.replyId), newReply);
+            console.log('Reply uploaded to Firestore successfully!');
+            setReplyContent("");
+            window.location.reload()
+        } catch (error) {
+            console.error('Error uploading reply to Firestore:', error);
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -76,7 +112,17 @@ const Review: FC<ReviewProps> = (props) => {
         return () => unsubscribe();
     }, []);
 
-    console.log(userData)
+    useEffect(() => {
+        const unsubscribe = onSnapshot(
+            query(collection(db, 'replies'), where('reviewId', '==', review.id ? review.id : review.reviewId)),
+            (snapshot) => {
+                const fetchedReplies = snapshot.docs.map((doc) => doc.data());
+                setReplies(fetchedReplies);
+            }
+        );
+
+        return () => unsubscribe();
+    }, [review.reviewId]);
 
     return (
         <div className='flex flex-col gap-4 justify-start items-start'>
@@ -108,7 +154,9 @@ const Review: FC<ReviewProps> = (props) => {
                     <HandThumbDownIcon className='w-3 h-3 sm:max-4xl:w-4 sm:max-4xl:h-4' />
                 </button>
                 {!isEditable &&
-                    <button className=' flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-accent-color text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-white hover:shadow-sm hover:shadow-zinc-500 hover:text-text-color'>
+                    <button onClick={() => {
+                        user ? setIsReplying(!isReplying) : navigate('/login')
+                    }} className=' flex flex-row gap-2 justify-center items-center px-5 py-1 sm:max-4xl:py-2 bg-accent-color text-text-color rounded-2xl font-bold text-[10px] sm:max-4xl:text-sm transition-all hover:bg-white hover:shadow-sm hover:shadow-zinc-500 hover:text-text-color'>
                         Reply
                     </button>
                 }
@@ -124,10 +172,26 @@ const Review: FC<ReviewProps> = (props) => {
                     </>}
 
             </div>
-            <div className='flex flew-row justify-start items-center gap-2'>
-                <img className='w-10 h-10' src={userData?.avatar} alt="" />
-                <input type="text" className='px-5 py-3 rounded-2xl bg-zinc-300 border-b focus:outline-none text-xs' placeholder='Write a reply...' />
-            </div>
+            {isReplying && <div className='flex flew-row justify-start items-center gap-2'>
+                <img className='w-6 h-6 md:max-4xl:w-10 md:max-4xl:h-10' src={userData?.avatar} alt="" />
+                <div className='flex flex-row gap-2'>
+                    <input type="text" className='px-5 py-2 md:max-4xl:py-3 rounded-2xl bg-zinc-300 border-b focus:outline-none text-xs' placeholder='Write a reply...'
+                        value={replyContent}
+                        onChange={(e) => setReplyContent(e.target.value)}
+                    />
+                    <button onClick={handleUploadReply} className='flex flex-col justify-center items-center w-max px-4 py-2 md:max-4xl:py-3 rounded-2xl bg-button-primary-color text-bg-color'>
+                        <PaperAirplaneIcon className='w-4 h-4' />
+                    </button>
+                </div>
+            </div>}
+            {filteredReplies.length > 0 &&
+                <button onClick={() => setIsRepliesShowing(!isRepliesShowing)} className='flex flex-row gap-2 justify-start items-center px-5 py-3 bg-zinc-300/50 rounded-2xl text-xs'>{isRepliesShowing ? "Hide" : "View"} {filteredReplies.length} {filteredReplies.length > 1 ? "replies" : "reply"}
+                    {!isRepliesShowing ? <ChevronDownIcon className='w-2 h-2 sm:max-4xl:w-3 sm:max-4xl:h-3' /> : <ChevronUpIcon className='w-2 h-2 sm:max-4xl:w-3 sm:max-4xl:h-3' />}
+                </button>
+            }
+            {isRepliesShowing && filteredReplies.map((reply) => (
+                <Reply key={reply.replyId} reply={reply} isEditable={reply.replyAuthorId === user?.uid ? true : false} />
+            ))}
         </div>
     )
 }
