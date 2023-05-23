@@ -8,8 +8,9 @@ import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import images from "../../assets";
 import { AuthContext } from '../../contexts/AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, db } from '../../firebase';
+import { DocumentData, collection, doc, onSnapshot } from 'firebase/firestore';
 
 interface HeaderProps {
     handleMenuToggle: () => void
@@ -22,10 +23,11 @@ const Header: FC<HeaderProps> = (props) => {
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const [isSearchToggled, setIsSearchToggled] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [userData, setUserData] = useState<DocumentData | undefined>();
+
     const user = useContext(AuthContext)
     const navigate = useNavigate()
     const mediaType = movie?.title ? "movie" : "tv"
-
 
     const { handleMenuToggle } = props
 
@@ -50,6 +52,22 @@ const Header: FC<HeaderProps> = (props) => {
             }
         }
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userRef = doc(collection(db, 'users'), user.uid);
+
+                onSnapshot(userRef, (snapshot) => {
+                    const userData = snapshot.data();
+                    setUserData(userData)
+                });
+
+            } else {
+            }
+        });
+        return () => unsubscribe();
     }, []);
 
     const handleToggleMenu = () => {
@@ -112,7 +130,10 @@ const Header: FC<HeaderProps> = (props) => {
                                     signOut(auth)
                                     navigate('/login')
                                 }} className='w-full'>
-                                    <h1 className='w-max font-bold text-xl pb-4 text-bg-color'>Sign Out</h1>
+                                    <div className='flex flex-row justify-start items-center gap-2'>
+                                        <img className='w-10 h-10 pb-4' src={userData?.avatar} alt={userData?.email} />
+                                        <h1 className='w-max font-bold text-xl pb-4 text-bg-color'>Sign Out</h1>
+                                    </div>
                                     <div className='h-0.5 bg-zinc-700' />
                                 </button>
                                 <div className='w-max'>
