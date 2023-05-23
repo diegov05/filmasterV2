@@ -88,7 +88,6 @@ const Review: FC<ReviewProps> = (props) => {
             await setDoc(doc(repliesCollectionRef, newReply.replyId), newReply);
             console.log('Reply uploaded to Firestore successfully!');
             setReplyContent("");
-            window.location.reload()
         } catch (error) {
             console.error('Error uploading reply to Firestore:', error);
         }
