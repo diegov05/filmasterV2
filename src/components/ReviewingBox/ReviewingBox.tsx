@@ -1,5 +1,5 @@
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { collection, doc, setDoc } from 'firebase/firestore'
+import { DocumentData, collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { FC, useEffect, useState } from 'react'
 import { auth, db } from '../../firebase'
 import { User, onAuthStateChanged } from 'firebase/auth'
@@ -31,6 +31,7 @@ const ReviewingBox: FC<ReviewingBoxProps> = (props) => {
             reviewRating: 0
         }
     )
+    const [userData, setUserData] = useState<DocumentData | undefined>();
     const reviewsCollectionRef = collection(db, 'reviews')
 
     const handleStarClick = (selectedRating: number) => {
@@ -51,6 +52,7 @@ const ReviewingBox: FC<ReviewingBoxProps> = (props) => {
             date: review.date,
             movieId: review.movieId,
             mediaType: review.mediaType,
+            avatar: userData!.avatar,
             reviewContent,
             reviewRating,
         };
@@ -72,6 +74,12 @@ const ReviewingBox: FC<ReviewingBoxProps> = (props) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                const userRef = doc(collection(db, 'users'), user.uid);
+
+                onSnapshot(userRef, (snapshot) => {
+                    const userData = snapshot.data();
+                    setUserData(userData)
+                });
             } else {
                 setUser(null);
             }
