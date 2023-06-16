@@ -11,7 +11,6 @@ Upgraded version of Filmaster, a Responsive Modern UI/UX Movie Catalog Applicati
 * Create personalized watchlists and add movies to them.
 * Rate and review movies.
 * Responsive design for seamless usage across devices.
-* Dark mode/light mode themes for comfortable viewing.
 
 ### Technologies used:
 
